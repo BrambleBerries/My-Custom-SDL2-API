@@ -2,7 +2,9 @@
 *.o
 *.vscode
 src/include/*
+!src/include/README.txt
 src/library/*
+!src/library/README.txt
 *.dll*
 *.cmake
 *.pc
