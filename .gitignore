@@ -1,0 +1,10 @@
+*.exe
+*.o
+*.vscode
+src/include/*
+src/library/*
+*.dll*
+*.cmake
+*.pc
+*.la
+*.a
