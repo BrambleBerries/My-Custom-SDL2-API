@@ -1,5 +1,5 @@
-#ifndef NSTEST_H
-#define NSTEST_H
+#ifndef MY_SDL_IMPLEMENTATION_H
+#define MY_SDL_IMPLEMENTATION_H
 
 #include <functional>
 
@@ -8,7 +8,7 @@
 //graphical render kit
 #include "src/include/SDL2/SDL.h"
 
-namespace myg
+namespace msi
 {
     extern int WIDTH, HEIGHT;
     extern long long deltaTimeMs;

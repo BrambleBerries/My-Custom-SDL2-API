@@ -6,11 +6,11 @@
 #include <chrono>
 #include <thread>
 
-#include "nsTest.hpp"
+#include "My_SDL_Implementation.hpp"
 
 //###### defining externs ######//
-int myg::WIDTH, myg::HEIGHT;
-long long myg::deltaTimeMs;
+int msi::WIDTH, msi::HEIGHT;
+long long msi::deltaTimeMs;
 
 
 //###### file-scope variables ######//
@@ -31,7 +31,7 @@ namespace {
     bool init()
     {
         SDL_Init( SDL_INIT_EVERYTHING );
-        SDL_CreateWindowAndRenderer(myg::WIDTH, myg::HEIGHT, SDL_WINDOW_ALLOW_HIGHDPI, &window, &renderer);
+        SDL_CreateWindowAndRenderer(msi::WIDTH, msi::HEIGHT, SDL_WINDOW_ALLOW_HIGHDPI, &window, &renderer);
         
         if (window != NULL)
             return true;
@@ -52,7 +52,7 @@ namespace {
     {
         auto microseconds{ std::chrono::duration_cast<std::chrono::microseconds>( std::chrono::steady_clock::now() - previousTime )};
         previousTime = std::chrono::steady_clock::now();
-        myg::deltaTimeMs = microseconds.count() / 1'000;
+        msi::deltaTimeMs = microseconds.count() / 1'000;
 
         if (printTime) printTimeToConsole(microseconds);
     }
@@ -80,17 +80,17 @@ namespace {
 
 int main()
 {
-    myg::run(myg::setup, myg::draw);
+    msi::run(msi::setup, msi::draw);
 }
 
 
-void myg::size(const int x, const int y)
+void msi::size(const int x, const int y)
 {
     WIDTH = x;
     HEIGHT = y;
 }
 
-void myg::printElapsedTime(const bool print)
+void msi::printElapsedTime(const bool print)
 {
     std::cout << print << std::endl;
     std::cout << printTime << std::endl;
@@ -99,7 +99,7 @@ void myg::printElapsedTime(const bool print)
 
 }
 
-void myg::run(const std::function<void(void)> setup,const std::function<void(void)> loop)
+void msi::run(const std::function<void(void)> setup,const std::function<void(void)> loop)
 {
     //add the start of the program, run the user-defined setup
     setup();
@@ -125,7 +125,7 @@ void myg::run(const std::function<void(void)> setup,const std::function<void(voi
 
 }
 
-void myg::setFrameRate(const unsigned int frameRate)
+void msi::setFrameRate(const unsigned int frameRate)
 {
     targetIntervalMs = 1000/frameRate;
 }

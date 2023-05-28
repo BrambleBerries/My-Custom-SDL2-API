@@ -1,6 +1,6 @@
 all:
 
-	g++ -Wall -Werror -pedantic -I src/include -L src/lib -o main nsTest.cpp main.cpp  -lmingw32 -lSDL2main -lSDL2
+	g++ -Wall -Werror -pedantic -I src/include -L src/lib -o main My_SDL_Implementation.cpp Example_main.cpp  -lmingw32 -lSDL2main -lSDL2
 	
 	./main.exe
 	$(info  )
