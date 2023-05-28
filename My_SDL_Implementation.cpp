@@ -11,17 +11,21 @@
 //###### defining externs ######//
 int msi::WIDTH, msi::HEIGHT;
 long long msi::deltaTimeMs;
-
+long long msi::frameCount = 0;
 
 //###### file-scope variables ######//
 bool printTime = false;
 int targetIntervalMs = 16;
+int strokeWeight = 10;
+
+//###### things probably needed elsewhere ######//
+SDL_Window* window;
+SDL_Renderer* renderer;
 
 //###### anonymous namespace ######//
 namespace {
 
-    SDL_Window* window;
-    SDL_Renderer* renderer;
+    
 
     //keep track of timechanges
     std::chrono::time_point< std::chrono::steady_clock > previousTime = std::chrono::steady_clock::now();
@@ -53,20 +57,22 @@ namespace {
         auto microseconds{ std::chrono::duration_cast<std::chrono::microseconds>( std::chrono::steady_clock::now() - previousTime )};
         previousTime = std::chrono::steady_clock::now();
         msi::deltaTimeMs = microseconds.count() / 1'000;
-
+        msi::frameCount++;
         if (printTime) printTimeToConsole(microseconds);
     }
 
-    void timed_function(std::function<void(void)> func, unsigned int interval, std::function<void(void)> timeFunc)
+    void timed_function(std::function<void(void)> userFunc, unsigned int interval)
     {
         std::thread( 
-        [func, interval, timeFunc]() 
+        [userFunc, interval]() 
         {
             while (true) 
             {
                 auto timeToNextFrame = std::chrono::steady_clock::now() + std::chrono::milliseconds(interval);
-                timeFunc();
-                func();
+                updateTime();
+                userFunc();
+                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+                SDL_RenderPresent(renderer);
                 std::this_thread::sleep_until(timeToNextFrame);
             }
         }
@@ -108,7 +114,7 @@ void msi::run(const std::function<void(void)> setup,const std::function<void(voi
     if ( !init() )
         return;
     //start the draw loop
-    timed_function(loop, targetIntervalMs, updateTime);
+    timed_function(loop, targetIntervalMs);
 
     SDL_Event windowEvent;
 

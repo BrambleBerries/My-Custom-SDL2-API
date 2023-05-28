@@ -8,10 +8,18 @@
 //graphical render kit
 #include "src/include/SDL2/SDL.h"
 
+#include "My_SDL_Shapes.hpp"
+
 namespace msi
 {
+    //variables for width and height of the screen
     extern int WIDTH, HEIGHT;
+
+    //variable of how long the previous screen took to render
     extern long long deltaTimeMs;
+
+    //variable that contains the number of frames rendered since the tsart of the program
+    extern long long frameCount;
 
     void setup();
     void draw();
