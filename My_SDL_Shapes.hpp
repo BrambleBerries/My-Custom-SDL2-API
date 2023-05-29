@@ -10,6 +10,19 @@ namespace msi {
 
 
     /**
+     * @brief  Draws a triangle between the given pcoordinates
+     * @note   
+     * @param  x1: x-Coordinate point 1
+     * @param  y1: x-Coordinate point 1
+     * @param  x2: x-Coordinate point 2
+     * @param  y2: x-Coordinate point 2
+     * @param  x3: x-Coordinate point 3
+     * @param  y3: x-Coordinate point 3
+     * @retval None
+     */
+    void triangle(const float x1, const float y1, const float x2, const float y2, const float x3, const float y3);
+
+    /**
      * @brief  Draws a quad between the given pcoordinates
      * @note   
      * @param  x1: x-Coordinate point 1
@@ -22,18 +35,18 @@ namespace msi {
      * @param  y4: y-Coordinate point 4
      * @retval None
      */
-    void quad(const int x1, const int y1, const int x2, const int y2, const int x3, const int y3, const int x4, const int y4);
+    void quad(const float x1, const float y1, const float x2, const float y2, const float x3, const float y3, const float x4, const float y4);
     
     /**
      * @brief  creates a rectangle at position with width and height
      * @note   
-     * @param  x: x-Coordinate of the rectangle
-     * @param  y: y-Coordinate of the rectangle
-     * @param  width: width of the rectangle
-     * @param  height: height of the rectangle
+     * @param  _x: x-Coordinate of the rectangle
+     * @param  _y: y-Coordinate of the rectangle
+     * @param  _width: width of the rectangle
+     * @param  _height: height of the rectangle
      * @retval None
      */
-    void rect(const int x, const int y, const uint16_t width, const uint16_t height);
+    void rect(const float x, const float y, const float width, const float height);
 
     /**
      * @brief  creates a square at x and y with size size
@@ -43,7 +56,7 @@ namespace msi {
      * @param  size: width and height of the square
      * @retval None
      */
-    void square(const int x, const int y, const uint16_t size);
+    void square(const float x, const float y, const float size);
 
     /**
      * @brief  draws a line between first and second point
@@ -54,7 +67,7 @@ namespace msi {
      * @param  y2: y-Cooridnate point 2
      * @retval None
      */
-    void line(const int x1, const int y1, const int x2, const int y2);
+    void line(const float x1, const float y1, const float x2, const float y2);
 
     /**
      * @brief  Draws a point at the x- and y-coordinate
@@ -63,7 +76,7 @@ namespace msi {
      * @param  y: y-Coordinate of point
      * @retval None
      */
-    void point(const int x, const int y);
+    void point(const float x, const float y);
 }
 
 

@@ -59,6 +59,14 @@ namespace msi
      */
     void setFrameRate(const unsigned int frameRate);
 
+    /**
+     * @brief  sets the strokeWeight
+     * @note   
+     * @param  weight: defines strokeWeight
+     * @retval None
+     */
+    void strokeWeight(float weight);
+
 }
 
 #endif

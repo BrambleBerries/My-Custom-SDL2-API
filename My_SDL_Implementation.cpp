@@ -13,10 +13,10 @@ int msi::WIDTH, msi::HEIGHT;
 long long msi::deltaTimeMs;
 long long msi::frameCount = 0;
 
-//###### file-scope variables ######//
-bool printTime = false;
-int targetIntervalMs = 16;
-int strokeWeight = 10;
+//###### variables ######//
+bool _printTime = false;
+int _targetIntervalMs = 16;
+float _strokeWeight = 1;
 
 //###### things probably needed elsewhere ######//
 SDL_Window* window;
@@ -46,10 +46,10 @@ namespace {
 
     void printTimeToConsole(std::chrono::duration<long long, std::micro> elapsedMicroSeconds)
     {
-        std::cout << "elapsed time: \n";
+        /*std::cout << "elapsed time: \n";
         std::cout << std::setw(2) << std::setfill('0') << std::to_string(elapsedMicroSeconds.count() / 1'000'000)
             << "s." << std::setw(3) << std::setfill('0') << std::to_string(elapsedMicroSeconds.count() / 1'000)
-            << "." << std::setw(3) << std::setfill('0') << std::to_string(elapsedMicroSeconds.count() % 1000) << std::endl;
+            << "." << std::setw(3) << std::setfill('0') << std::to_string(elapsedMicroSeconds.count() % 1000) << std::endl;*/
     }
 
     void updateTime()
@@ -58,7 +58,7 @@ namespace {
         previousTime = std::chrono::steady_clock::now();
         msi::deltaTimeMs = microseconds.count() / 1'000;
         msi::frameCount++;
-        if (printTime) printTimeToConsole(microseconds);
+        if (_printTime) printTimeToConsole(microseconds);
     }
 
     void timed_function(std::function<void(void)> userFunc, unsigned int interval)
@@ -69,10 +69,33 @@ namespace {
             while (true) 
             {
                 auto timeToNextFrame = std::chrono::steady_clock::now() + std::chrono::milliseconds(interval);
+
+                auto start1 = std::chrono::high_resolution_clock::now();
+
                 updateTime();
+
+                auto stop1 = std::chrono::high_resolution_clock::now();
+                auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(stop1 - start1);
+                std::cout << "time for updateTime: " << duration1.count() << std::endl;
+
+
+                auto start2 = std::chrono::high_resolution_clock::now();
+
                 userFunc();
+
+                auto stop2 = std::chrono::high_resolution_clock::now();
+                auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(stop2 - start2);
+                std::cout << "time for userFunction: " << duration2.count() << std::endl;
+
+
+                auto start3 = std::chrono::high_resolution_clock::now();
+
                 SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
                 SDL_RenderPresent(renderer);
+
+                auto stop3 = std::chrono::high_resolution_clock::now();
+                auto duration3 = std::chrono::duration_cast<std::chrono::microseconds>(stop3 - start3);
+                std::cout << "time for renderer: " << duration3.count() << std::endl;
                 std::this_thread::sleep_until(timeToNextFrame);
             }
         }
@@ -98,11 +121,7 @@ void msi::size(const int x, const int y)
 
 void msi::printElapsedTime(const bool print)
 {
-    std::cout << print << std::endl;
-    std::cout << printTime << std::endl;
-    printTime = print;
-    std::cout << printTime << std::endl;
-
+    _printTime = print;
 }
 
 void msi::run(const std::function<void(void)> setup,const std::function<void(void)> loop)
@@ -114,7 +133,7 @@ void msi::run(const std::function<void(void)> setup,const std::function<void(voi
     if ( !init() )
         return;
     //start the draw loop
-    timed_function(loop, targetIntervalMs);
+    timed_function(loop, _targetIntervalMs);
 
     SDL_Event windowEvent;
 
@@ -133,5 +152,9 @@ void msi::run(const std::function<void(void)> setup,const std::function<void(voi
 
 void msi::setFrameRate(const unsigned int frameRate)
 {
-    targetIntervalMs = 1000/frameRate;
+    _targetIntervalMs = 1000/frameRate;
+}
+
+void msi::strokeWeight(float weight){
+    _strokeWeight = weight;
 }
