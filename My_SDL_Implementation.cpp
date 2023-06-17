@@ -56,7 +56,7 @@ namespace {
     {
         auto microseconds{ std::chrono::duration_cast<std::chrono::microseconds>( std::chrono::steady_clock::now() - previousTime )};
         previousTime = std::chrono::steady_clock::now();
-        msi::deltaTimeMs = microseconds.count() / 1'000;
+        msi::deltaTimeMs = microseconds.count() / 1000;
         msi::frameCount++;
         if (_printTime) printTimeToConsole(microseconds);
     }

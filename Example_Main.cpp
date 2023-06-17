@@ -17,10 +17,10 @@ void msi::draw()
     //msi::square(40, 40, 40);
     //msi::line(20, 20, 40, 40);
     //msi::point(80, 80);
-    msi::strokeWeight(40);
-    msi::quad(100, 100, 300, 200, 400, 500, 50, 350);
+    //msi::strokeWeight(40);
+    //msi::quad(100, 100, 300, 200, 400, 500, 50, 350);
     msi::strokeWeight(1);
-    msi::triangle(100, 100, 300, 200, 400, 500);
+    msi::triangle(100, 600, 300, 200, 400, 500);
 }
 
 

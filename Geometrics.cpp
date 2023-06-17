@@ -3,6 +3,12 @@
 #include <math.h>
 #include "Geometrics.hpp"
 
+Vector2D::Vector2D()
+{
+    this->x = 0;
+    this->y = 0;
+    this->c = {0, 0, 0, 0};
+}
 
 Vector2D::Vector2D(const float x, const float y, const Color c)
 {
